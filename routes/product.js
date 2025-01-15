@@ -28,7 +28,7 @@ router.post("/", async(req, res) => {
 
 router.get("/:id", async(req, res) => {
     try {
-        const product = await dbGet("SELECT * FROM product WHERE id = ?", [req.params.id]);
+        const product = await dbRun("SELECT * FROM product WHERE id = ?", [req.params.id]);
         if (!product) {
             res.status(404).json({message: "Product not found"});
         }
@@ -44,7 +44,7 @@ router.put("/:id", async(req, res) => {
         res.status(400).json({message: "Missing Data"});
     }
     try {
-        const product = await dbGet("SELECT * FROM product WHERE id = ?", [req.params.id]);
+        const product = await dbRun("SELECT * FROM product WHERE id = ?", [req.params.id]);
         if (!product) {
             res.status(400).json({message: "Product not found"});
             return;
@@ -58,7 +58,7 @@ router.put("/:id", async(req, res) => {
 //Hiányzik valami a feltételeknél
 router.delete("/:id", async(req, res) => {
     try {
-        const product = await dbGet("SELECT * FROM product WHERE id = ?", [req.params.id]);
+        const product = await dbRun("SELECT * FROM product WHERE id = ?", [req.params.id]);
         if (!product) {
             res.status(404).json({message: "Product not found"});
             return;
